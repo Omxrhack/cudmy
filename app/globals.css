@@ -1,26 +1,148 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   cudmy · sistema de diseño (capa de marca)
+   - Escalas iris/honey (50→900) + ink/mist/porcelain/fern como utilidades
+     Tailwind (bg-iris-500, text-honey-500, bg-ink, …).
+   - Fuentes: Bricolage (display) + Plus Jakarta Sans (cuerpo).
+   - Sombras soft/lift.
+   ==========================================================================*/
+@theme {
+  /* Tipografía */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+
+  /* Iris / primary (base 500) */
+  --color-iris-50: #eeecfc;
+  --color-iris-100: #ddd9f9;
+  --color-iris-200: #bbb3f3;
+  --color-iris-300: #988cec;
+  --color-iris-400: #7666e6;
+  --color-iris-500: #5b4be1;
+  --color-iris-600: #4939b4;
+  --color-iris-700: #372b87;
+  --color-iris-800: #241c5a;
+  --color-iris-900: #120e2d;
+
+  /* Honey / secondary (base 500) */
+  --color-honey-50: #fff6e6;
+  --color-honey-100: #ffeccc;
+  --color-honey-200: #ffd999;
+  --color-honey-300: #ffc766;
+  --color-honey-400: #ffb933;
+  --color-honey-500: #ffb020;
+  --color-honey-600: #cc8d1a;
+  --color-honey-700: #996a13;
+  --color-honey-800: #66460d;
+  --color-honey-900: #332306;
+
+  /* Neutros de marca */
+  --color-ink: #1b1830;
+  --color-mist: #edebff;
+  --color-porcelain: #f7f7fb;
+  --color-fern: #16a34a;
+
+  /* Sombras de marca */
+  --shadow-soft: 0 2px 20px -6px rgb(27 24 48 / 0.12);
+  --shadow-lift: 0 18px 50px -12px rgb(91 75 225 / 0.28);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* ----------------------------------------------------------------------------
+   Mapeo de los tokens semánticos de HeroUI v3 a la marca.
+   En @layer base (después del import de HeroUI) → gana por orden de fuente.
+   El modo oscuro reutiliza el tema dark que ya trae HeroUI v3.
+   --------------------------------------------------------------------------*/
+@layer base {
+  /* Marca en ambos modos */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --accent: var(--color-iris-500);
+    --accent-foreground: #ffffff;
+    --success: var(--color-fern);
+    --focus: var(--color-iris-500);
+    /* Radios grandes en componentes HeroUI */
+    --radius: 0.75rem;
+  }
+
+  /* Light: fondo porcelain / texto ink */
+  :root:not(.dark) {
+    --background: var(--color-porcelain);
+    --foreground: var(--color-ink);
+  }
+
+  /* Dark: aclaramos accent/focus para contraste sobre superficie oscura */
+  .dark {
+    --accent: var(--color-iris-400);
+    --focus: var(--color-iris-400);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ----------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------*/
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Scrollbar oculta (Firefox) — el scroll sigue funcionando */
+    scrollbar-width: none;
+  }
+
+  body {
+    background: var(--color-porcelain);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Tailwind v4 deja los botones en cursor:default → los volvemos interactivos */
+  button:not(:disabled),
+  [role="button"],
+  a[href] {
+    cursor: pointer;
+  }
+}
+
+/* Scrollbar oculta (WebKit) — el scroll sigue funcionando */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Lenis (smooth scroll) — CSS auxiliar recomendado */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Accesibilidad: respetar prefers-reduced-motion en toda animación/transición */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
