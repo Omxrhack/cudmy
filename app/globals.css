@@ -12,6 +12,11 @@
   /* Tipografía */
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  /* Fuentes del loop de palabras del hero */
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-script: var(--font-caveat), cursive;
+  --font-condensed: var(--font-anton), sans-serif;
 
   /* Iris / primary (base 500) */
   --color-iris-50: #eeecfc;
@@ -49,6 +54,9 @@
 
   /* Marquee de marcas */
   --animate-marquee: marquee 34s linear infinite;
+
+  /* Entrada de cada palabra del loop del hero */
+  --animate-word-in: word-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes marquee {
@@ -57,6 +65,17 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

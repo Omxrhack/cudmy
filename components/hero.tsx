@@ -1,4 +1,5 @@
 import { VideoSequence } from "./video-sequence";
+import { RotatingWord } from "./rotating-word";
 
 // Clips gratuitos cc0 (MDN) — full-frame (sin letterbox), así object-cover llena
 // sin barras negras. Se reproducen en secuencia y en loop. El reproductor real
@@ -35,15 +36,7 @@ export function Hero() {
       {/* Texto (izquierda) */}
       <div className="relative z-10 w-full max-w-2xl px-6 py-24 sm:px-10 lg:pl-24 lg:pr-8">
         <h1 className="text-5xl font-extrabold leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">
-          Aprende algo{" "}
-          <span className="relative inline-block">
-            <span className="relative z-10">nuevo</span>
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-1 -z-0 h-4 rounded bg-honey-300/70"
-            />
-          </span>{" "}
-          hoy con cudmy.
+          Empieza a <RotatingWord /> hoy con cudmy.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/70">
           Miles de cursos de diseño, desarrollo y negocio. Avanza a tu ritmo,
