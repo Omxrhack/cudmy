@@ -1,6 +1,18 @@
-import { siNetflix, siSpotify, siAirbnb, siUber, siGithub } from "simple-icons";
+import {
+  siNetflix,
+  siSpotify,
+  siAirbnb,
+  siUber,
+  siGithub,
+  siX,
+  siInstagram,
+  siTiktok,
+  siYoutube,
+} from "simple-icons";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 const BUSINESS_LOGOS = [siNetflix, siSpotify, siAirbnb, siUber, siGithub];
+const SOCIAL = [siX, siInstagram, siTiktok, siYoutube];
 
 const COLUMNS: { title: string; links: string[] }[] = [
   {
@@ -19,13 +31,7 @@ const COLUMNS: { title: string; links: string[] }[] = [
   },
   {
     title: "Certificaciones",
-    links: [
-      "AWS",
-      "Microsoft Azure",
-      "Kubernetes",
-      "Ciberseguridad",
-      "Scrum",
-    ],
+    links: ["AWS", "Microsoft Azure", "Kubernetes", "Ciberseguridad", "Scrum"],
   },
   {
     title: "Habilidades",
@@ -78,7 +84,7 @@ export function SiteFooter() {
                   role="img"
                   aria-label={logo.title}
                   viewBox="0 0 24 24"
-                  className="h-6 w-6 fill-current text-white/70"
+                  className="h-6 w-6 fill-current text-white/60"
                 >
                   <title>{logo.title}</title>
                   <path d={logo.path} />
@@ -86,6 +92,22 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      {/* Banda de marca + newsletter */}
+      <div className="border-b border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:px-16">
+          <div className="max-w-sm">
+            <span className="font-display text-2xl font-bold tracking-tight text-white">
+              cudmy
+            </span>
+            <p className="mt-3 text-sm leading-relaxed text-white/60">
+              Aprende las habilidades que piden hoy, con instructores que las
+              usan de verdad. Avanza a tu ritmo.
+            </p>
+          </div>
+          <NewsletterForm />
         </div>
       </div>
 
@@ -118,12 +140,29 @@ export function SiteFooter() {
       {/* Barra inferior */}
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 sm:flex-row sm:px-10 lg:px-16">
-          <div className="flex items-center gap-4">
-            <span className="font-display text-2xl font-extrabold tracking-tight text-honey-500">
-              cudmy
-            </span>
-            <span className="text-sm text-white/50">© 2026 cudmy, Inc.</span>
-          </div>
+          <span className="text-sm text-white/50">© 2026 cudmy, Inc.</span>
+
+          <ul className="flex items-center gap-3">
+            {SOCIAL.map((logo) => (
+              <li key={logo.title}>
+                <a
+                  href="#"
+                  aria-label={logo.title}
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-iris-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+                >
+                  <svg
+                    role="img"
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 fill-current"
+                  >
+                    <title>{logo.title}</title>
+                    <path d={logo.path} />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+
           <button
             type="button"
             aria-label="Cambiar idioma"

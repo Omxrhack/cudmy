@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { useScrolled, useMounted } from "@/lib/hooks";
 
 function SearchIcon({ className }: { className?: string }) {
   return (
@@ -99,8 +101,7 @@ function IconButton({
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
 
   const isDark = resolvedTheme === "dark";
 
@@ -143,19 +144,28 @@ function LanguageToggle() {
 }
 
 export function Header() {
+  const scrolled = useScrolled(8);
+
   return (
-    <header className="relative z-50 w-full bg-transparent">
-      <div className="mx-auto grid h-24 w-full grid-cols-[1fr_minmax(0,44rem)_1fr] items-center gap-4 px-6 lg:px-10">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full transition-colors duration-300",
+        scrolled
+          ? "border-b border-ink/8 bg-background/80 backdrop-blur-md dark:border-white/10"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
+      <div className="mx-auto grid h-20 w-full max-w-[100rem] grid-cols-[auto_1fr_auto] items-center gap-4 px-6 lg:h-24 lg:grid-cols-[1fr_minmax(0,40rem)_1fr] lg:px-10">
         {/* 1 · Marca */}
-        <a
+        <Link
           href="/"
           className={cn(
-            "justify-self-start font-display text-2xl font-extrabold tracking-tight text-honey-500",
-            "rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "justify-self-start font-display text-2xl font-bold tracking-tight text-foreground",
+            "rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-iris-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           )}
         >
           cudmy
-        </a>
+        </Link>
 
         {/* 2 · Buscador (centrado) */}
         <form
@@ -163,13 +173,13 @@ export function Header() {
           className="relative hidden w-full min-w-0 justify-self-center md:block"
           onSubmit={(e) => e.preventDefault()}
         >
-          <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/40" />
+          <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/40" />
           <input
             type="search"
             aria-label="Buscar cursos"
             placeholder="¿Qué quieres aprender hoy?"
             className={cn(
-              "h-12 w-full rounded-full border border-border bg-surface pl-12 pr-4 text-base text-foreground shadow-soft",
+              "h-11 w-full rounded-lg border border-ink/10 bg-surface pl-11 pr-4 text-base text-foreground dark:border-white/12",
               "placeholder:text-foreground/40 transition",
               "focus-visible:outline-none focus-visible:border-iris-500 focus-visible:ring-2 focus-visible:ring-iris-500/40",
             )}
@@ -179,12 +189,12 @@ export function Header() {
         {/* 3 · Acciones */}
         <nav
           aria-label="Cuenta y preferencias"
-          className="flex shrink-0 items-center justify-self-end gap-1.5 sm:gap-2"
+          className="flex shrink-0 items-center justify-self-end gap-1 sm:gap-1.5"
         >
           <button
             type="button"
             className={cn(
-              "hidden h-10 items-center whitespace-nowrap rounded-xl px-4 text-sm font-semibold text-foreground/80 transition sm:inline-flex",
+              "hidden h-10 items-center whitespace-nowrap rounded-lg px-3.5 text-sm font-semibold text-foreground/80 transition sm:inline-flex",
               "hover:bg-foreground/5 hover:text-foreground active:scale-[0.97]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-iris-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             )}
@@ -194,10 +204,9 @@ export function Header() {
           <button
             type="button"
             className={cn(
-              "inline-flex h-10 items-center rounded-xl bg-honey-500 px-4 text-sm font-bold text-ink transition duration-200",
-              "hover:-translate-y-0.5 hover:bg-honey-400 hover:shadow-[0_10px_28px_-8px_rgb(255_176_32_/_0.7)]",
-              "active:translate-y-0 active:scale-[0.97]",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "inline-flex h-10 items-center rounded-lg bg-iris-500 px-4 text-sm font-semibold text-white transition duration-200",
+              "hover:-translate-y-0.5 hover:bg-iris-600 hover:shadow-md active:translate-y-0 active:scale-[0.97]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-iris-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             )}
           >
             Registrarse

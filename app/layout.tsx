@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Bricolage_Grotesque,
-  Plus_Jakarta_Sans,
-  Playfair_Display,
-  JetBrains_Mono,
-  Caveat,
-  Anton,
-} from "next/font/google";
+import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/header";
@@ -24,40 +17,21 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-// Fuentes con carácter para el loop de palabras del hero
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const anton = Anton({
-  variable: "--font-anton",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cudmy.com"),
   title: {
-    default: "cudmy · Aprende algo nuevo hoy",
+    default: "cudmy · Aprende las habilidades que piden hoy",
     template: "%s · cudmy",
   },
   description:
-    "Marketplace de cursos online. Descubre, aprende y avanza a tu ritmo con cudmy.",
+    "Marketplace de cursos online con instructores reales. Diseño, desarrollo, IA y negocio. Aprende a tu ritmo y avanza en tu carrera con cudmy.",
+  openGraph: {
+    title: "cudmy · Aprende las habilidades que piden hoy",
+    description:
+      "Miles de cursos de diseño, desarrollo, IA y negocio con instructores reales.",
+    type: "website",
+    locale: "es_MX",
+  },
 };
 
 export default function RootLayout({
@@ -69,7 +43,7 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${jakarta.variable} ${playfair.variable} ${jetbrains.variable} ${caveat.variable} ${anton.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${jakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
         <Providers>

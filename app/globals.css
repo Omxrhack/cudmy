@@ -9,14 +9,11 @@
    - Sombras soft/lift.
    ==========================================================================*/
 @theme {
-  /* Tipografía */
+  /* Tipografía — una sola voz: Bricolage (display) + Plus Jakarta (cuerpo).
+     La jerarquía se construye con peso/tamaño/tracking, nunca cambiando de
+     familia (esa disciplina es lo que separa "producto" de "demo"). */
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  /* Fuentes del loop de palabras del hero */
-  --font-serif: var(--font-playfair), Georgia, serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-  --font-script: var(--font-caveat), cursive;
-  --font-condensed: var(--font-anton), sans-serif;
 
   /* Iris / primary (base 500) */
   --color-iris-50: #eeecfc;
@@ -48,15 +45,15 @@
   --color-porcelain: #f7f7fb;
   --color-fern: #16a34a;
 
-  /* Sombras de marca */
-  --shadow-soft: 0 2px 20px -6px rgb(27 24 48 / 0.12);
-  --shadow-lift: 0 18px 50px -12px rgb(91 75 225 / 0.28);
+  /* Elevación — dos capas, teñida de ink, nunca negro puro. Regla: por
+     superficie usar hairline O sombra, no ambas; la sombra aparece en hover. */
+  --shadow-xs: 0 1px 2px rgb(27 24 48 / 0.05);
+  --shadow-sm: 0 1px 2px rgb(27 24 48 / 0.05), 0 2px 6px rgb(27 24 48 / 0.05);
+  --shadow-md: 0 2px 4px rgb(27 24 48 / 0.05), 0 8px 20px rgb(27 24 48 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(27 24 48 / 0.06), 0 20px 40px rgb(27 24 48 / 0.1);
 
   /* Marquee de marcas */
-  --animate-marquee: marquee 34s linear infinite;
-
-  /* Entrada de cada palabra del loop del hero */
-  --animate-word-in: word-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-marquee: marquee 42s linear infinite;
 }
 
 @keyframes marquee {
@@ -65,17 +62,6 @@
   }
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes word-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.35em) rotate(-2deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -91,8 +77,8 @@
     --accent-foreground: #ffffff;
     --success: var(--color-fern);
     --focus: var(--color-iris-500);
-    /* Radios grandes en componentes HeroUI */
-    --radius: 0.75rem;
+    /* Radio contenido en componentes HeroUI (10px) */
+    --radius: 0.625rem;
   }
 
   /* Light: fondo porcelain / texto ink */
@@ -119,8 +105,9 @@
   }
 
   body {
-    background: var(--color-porcelain);
-    color: var(--color-ink);
+    /* Sigue el tema (light=porcelain/ink, dark=HeroUI) en vez de fijar porcelain */
+    background: var(--background);
+    color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -132,6 +119,16 @@
   h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.03em;
+  }
+
+  /* Medida legible por defecto en párrafos de texto largo */
+  p {
+    text-wrap: pretty;
   }
 
   /* Tailwind v4 deja los botones en cursor:default → los volvemos interactivos */

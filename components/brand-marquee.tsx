@@ -37,10 +37,10 @@ export function BrandMarquee() {
   return (
     <section
       aria-label="Empresas donde trabajan nuestros estudiantes"
-      className="w-full py-28"
+      className="w-full py-12"
     >
-      <p className="mb-14 text-center text-sm font-semibold uppercase tracking-widest text-foreground/45">
-        Nuestros estudiantes trabajan en
+      <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.14em] text-foreground/45">
+        Nuestros estudiantes ahora trabajan en
       </p>
 
       <div
@@ -62,18 +62,18 @@ export function BrandMarquee() {
               {LOGOS.map((logo) => (
                 <li
                   key={logo.title}
-                  className="flex shrink-0 items-center gap-3 text-foreground/45 transition-colors hover:text-foreground/80"
+                  className="flex shrink-0 items-center gap-3 text-foreground/40 transition-colors duration-300 hover:text-foreground/75"
                 >
                   <svg
                     role="img"
                     aria-label={logo.title}
                     viewBox="0 0 24 24"
-                    className="h-8 w-8 shrink-0 fill-current"
+                    className="h-7 w-7 shrink-0 fill-current"
                   >
                     <title>{logo.title}</title>
                     <path d={logo.path} />
                   </svg>
-                  <span className="font-display text-2xl font-bold">
+                  <span className="font-display text-xl font-semibold tracking-tight">
                     {logo.title}
                   </span>
                 </li>
